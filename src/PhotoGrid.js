@@ -15,7 +15,7 @@ class PhotoGrid extends Component {
 
     return (
     
-        <div class="columns">{gridElements}</div>
+        <div className="columns" onScroll={this.props.onScroll}>{gridElements}</div>
       );
     }
 }
