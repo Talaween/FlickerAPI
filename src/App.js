@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PhotoGrid from './PhotoGrid.js';
+import PhotoGrid from './component/PhotoGrid';
 import axios from 'axios';
 
 class App extends Component {

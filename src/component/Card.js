@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './PhotoGrid.css';
+import './Card.css';
 
 class Card extends Component {
   render() {

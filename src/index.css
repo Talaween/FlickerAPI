@@ -1,5 +1,9 @@
+@font-face{
+	font-family:'Calluna';
+ 	src:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/callunasansregular-webfont.woff') format('woff');
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Calluna, Arial, sans-serif;
 }
