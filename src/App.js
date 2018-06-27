@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PhotoGrid from './component/PhotoGrid';
 import axios from 'axios';
+import Header from './component/Header';
+import './App.css';
 
 class App extends Component {
   
@@ -95,7 +97,11 @@ class App extends Component {
     //send data only if it is ready
     if(this.state.data.length > 0){
        return (
-        <PhotoGrid items={this.state.data} maxCols={4} onScroll={this.handleScroll} />
+        <div>
+          <Header />
+          <div className="defaultMargin">..</div>
+          <PhotoGrid items={this.state.data} maxCols={4} onScroll={this.handleScroll} />
+        </div>
       );
     }
     else{

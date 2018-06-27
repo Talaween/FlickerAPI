@@ -1,0 +1,15 @@
+.defaultMargin {
+    margin: 40px auto;
+}
+
+@media screen and (max-width: 580px) {
+    .defaultMargin {
+        margin: 60px auto;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .defaultMargin {
+        margin: 80px auto;
+    }
+}
