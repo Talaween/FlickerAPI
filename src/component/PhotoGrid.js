@@ -5,6 +5,10 @@ import Card from './Card.js';
 class PhotoGrid extends Component {
   render() {
 
+    //if the photogrid recieves an empty array
+    if(this.props.items.length === 0){
+      return <div>No data to show</div>
+    }
     var gridElements = this.props.items.map((item, i) =>{
 
         return <Card authorName={item.author} 

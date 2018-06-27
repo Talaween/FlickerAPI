@@ -10,11 +10,14 @@ class App extends Component {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      dataBeforeSearch:[],
+      allowFetchData: true
     };
 
      // This binding is necessary to make `this` work in the callback
      this.handleScroll = this.handleScroll.bind(this);
+     this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -23,8 +26,14 @@ class App extends Component {
     window.addEventListener('scroll', this.handleScroll);
   }
   
-
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+  
  fetchData(){
+
+    if (this.state.allowFetchData == false)
+      return;
 
     axios.get(`https://api.flickr.com/services/feeds/photos_public.gne?format=json`,{ 
       headers: {
@@ -37,22 +46,21 @@ class App extends Component {
         this.beautifyJSONData(posts);
 
         //copy the current array of data stored int he state object
-        let newPosts = this.state.data.slice();
+        let newPosts = this.state.dataBeforeSearch.slice();
 
         //concatenate the new posts with the new copy of the data
         newPosts = newPosts.concat(posts);
 
         this.setState({ 
-            data: newPosts
+            data: newPosts,
+            dataBeforeSearch: newPosts
           });
         }).catch( (error) => {
         console.log("the following error has occured:" + error);
       });
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
+ 
   /****
    * This function is just to extract proper author name and remove image from escription
    * 
@@ -84,8 +92,10 @@ class App extends Component {
 
     let clientHeight =  event.srcElement.documentElement.clientHeight;
 
+   // console.log("scroltop: " + scrollTop + ', scrollheight:' + scrollHeight + ', clientHeight:' + clientHeight);
+
     //detect when we reach the end of scrolling
-    if(scrollHeight - scrollTop === clientHeight){
+    if(scrollHeight - scrollTop <= clientHeight){
 
       //if so fetch more data from flicker
       this.fetchData();
@@ -93,12 +103,45 @@ class App extends Component {
         
   }
 
+  handleSearch(searchTerm){
+
+    //if search is reset, we go back to our data
+    if((searchTerm == null) || (searchTerm == "")){
+
+      let originalData = this.state.dataBeforeSearch.slice();
+
+      this.setState({
+        data:originalData,
+        allowFetchData: true
+      })
+
+      return;
+    }
+
+    let temp_data = this.state.dataBeforeSearch;
+   
+    var searchResult = temp_data.filter((item) =>{
+
+      console.log("searching for:" + searchTerm + " in:" + item.title);
+
+      if((item.title.search(searchTerm) > -1) || (item.description.search(searchTerm) > -1) || (item.tags.search(searchTerm) > -1))
+        return item;
+    });
+
+    //only update databeforeSearch if this is the first search we do
+    //do not featch data while we are in search mode
+    this.setState({
+      data:searchResult,
+      allowFetchData: false
+    })
+  }
+
   render() {
     //send data only if it is ready
-    if(this.state.data.length > 0){
+    if(this.state.dataBeforeSearch.length > 0){
        return (
         <div>
-          <Header />
+          <Header onSearchSubmit= {this.handleSearch} />
           <div className="defaultMargin">..</div>
           <PhotoGrid items={this.state.data} maxCols={4} onScroll={this.handleScroll} />
         </div>
