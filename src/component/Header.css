@@ -46,6 +46,33 @@
     float: right;
   }
   
+  .header .search-container {
+    float: left;
+  }
+  
+  .header input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+  }
+  
+  .header .search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .header .search-container button:hover {
+    background: #ccc;
+  }
+
+
   @media screen and (max-width: 500px) {
     .header img{
         width: 10%;
@@ -61,4 +88,20 @@
     .header-right {
       float: none;
     }
+
+    .header .search-container {
+        float: none;
+      }
+    
+    .header input[type=text], .header .search-container button {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: auto;
+        padding: 14px;
+      }
+      .header input[type=text] {
+        border: 1px solid #ccc;  
+      }
   }
