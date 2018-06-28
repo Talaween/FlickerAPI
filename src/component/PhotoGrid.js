@@ -7,7 +7,7 @@ class PhotoGrid extends Component {
 
     //if the photogrid recieves an empty array
     if(this.props.items.length === 0){
-      return <div>No data to show</div>
+      return <div className="noResult"><br/>Your search for '{this.props.searchTerm}' returned no results</div>
     }
     var gridElements = this.props.items.map((item, i) =>{
 

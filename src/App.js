@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       data: [],
       dataBeforeSearch:[],
-      allowFetchData: true
+      allowFetchData: true,
+      searchTerm: ""
     };
 
      // This binding is necessary to make `this` work in the callback
@@ -132,7 +133,8 @@ class App extends Component {
     //do not featch data while we are in search mode
     this.setState({
       data:searchResult,
-      allowFetchData: false
+      allowFetchData: false,
+      searchTerm: searchTerm
     })
   }
 
@@ -143,7 +145,7 @@ class App extends Component {
         <div>
           <Header onSearchSubmit= {this.handleSearch} />
           <div className="defaultMargin">..</div>
-          <PhotoGrid items={this.state.data} maxCols={4} onScroll={this.handleScroll} />
+          <PhotoGrid items={this.state.data} maxCols={4} onScroll={this.handleScroll} searchTerm={this.state.searchTerm} />
         </div>
       );
     }
