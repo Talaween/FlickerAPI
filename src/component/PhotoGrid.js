@@ -7,7 +7,12 @@ class PhotoGrid extends Component {
 
     //if the photogrid recieves an empty array
     if(this.props.items.length === 0){
-      return <div className="noResult"><br/>Your search for '{this.props.searchTerm}' returned no results</div>
+      if(this.props.searchTerm != "")
+        return (<div className="noResult"><br/>Your search for '{this.props.searchTerm}' returned no results</div>);
+      else
+        return (<div className="noResult"><br/>please wait while we are connecting to Flickr API</div>);
+
+      
     }
     var gridElements = this.props.items.map((item, i) =>{
 

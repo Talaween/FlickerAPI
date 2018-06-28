@@ -2,6 +2,7 @@
   "name": "flicker-api",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://reactexample.talaween.net/",
   "dependencies": {
     "axios": "^0.18.0",
     "react": "^16.4.1",

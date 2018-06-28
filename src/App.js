@@ -36,10 +36,15 @@ class App extends Component {
     if (this.state.allowFetchData == false)
       return;
 
-    axios.get(`https://api.flickr.com/services/feeds/photos_public.gne?format=json`,{ 
+     let flicker_url = 'https://cors-anywhere.herokuapp.com/https://api.flickr.com/services/feeds/photos_public.gne?format=json&api_key=44cdf4b3834446930d6f62e2863294b4';
+    //let flicker_url = 'https://api.flickr.com/services/rest/?method=flickr.photos.getPopular&api_key=44cdf4b3834446930d6f62e2863294b4&user_id=25199803@N07&format=json';
+    
+     axios.get(flicker_url,{ 
       headers: {
-      'Access-Control-Allow-Origin': '*'}
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type' : 'application/json'}
       }).then(res => {
+       // console.log(res.data);
         var new_data = res.data.split("jsonFlickrFeed(");
         new_data = new_data[1].substring(0, new_data[1].length - 1);
         var jsonData = JSON.parse(new_data);
@@ -140,7 +145,7 @@ class App extends Component {
 
   render() {
     //send data only if it is ready
-    if(this.state.dataBeforeSearch.length > 0){
+   
        return (
         <div>
           <Header onSearchSubmit= {this.handleSearch} />
@@ -148,12 +153,8 @@ class App extends Component {
           <PhotoGrid items={this.state.data} maxCols={4} onScroll={this.handleScroll} searchTerm={this.state.searchTerm} />
         </div>
       );
-    }
-    else{
-      return (
-        <div />
-      );
-    }
+    
+   
    
   }
 }
